@@ -35,6 +35,7 @@ class EzuiPlayer extends StatefulWidget{
 }
 
 class _EzuiPlayerState extends State<EzuiPlayer> {
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -64,10 +65,42 @@ class _EzuiPlayerState extends State<EzuiPlayer> {
 }
 
 class EzuiPlayerController {
-  EzuiPlayerController._(int id)
-      : _channel = new MethodChannel('plugins.com.nyiit.ezuiplayer/EzuiPlayer_$id');
-
   final MethodChannel _channel;
+  EzuiPlayerCallback mEzuiPlayerCalback;
+
+  EzuiPlayerController._(int id) :
+        _channel = new MethodChannel('plugins.com.nyiit.ezuiplayer/EzuiPlayer_$id') {
+    _channel.setMethodCallHandler(_handleMethodCall);
+  }
+
+  setEzuiPlayerCalback(EzuiPlayerCallback ezuiPlayerCalback){
+    this.mEzuiPlayerCalback = ezuiPlayerCalback;
+  }
+
+  Future<dynamic> _handleMethodCall(MethodCall call) async {
+    print("_handleMethodCall: " + call.method);
+    switch (call.method) {
+      case 'onPlaySuccess':
+        //isPlay = true;
+        //regionDidChange();
+      //if (mEzuiPlayerCalback != null) {
+        mEzuiPlayerCalback.onPlaySuccess();
+      //}
+        break;
+      case 'onPlayFail':
+        break;
+      case 'onVideoSizeChange':
+        break;
+      case 'onPrepared':
+        break;
+      case 'onPlayTime':
+        break;
+      case 'onPlayTime':
+        break;
+      case 'onPlayFinish':
+        break;
+    }
+  }
 
   Future<void> setUrl(String url) async {
     assert(url != null);
@@ -83,4 +116,14 @@ class EzuiPlayerController {
     //assert(url != null);
     return _channel.invokeMethod('stop');
   }
+}
+
+//callback
+typedef OnPlaySuccess = void Function();
+typedef OnPlayFailed = void Function(String error);
+class EzuiPlayerCallback {
+  OnPlaySuccess onPlaySuccess;
+  OnPlayFailed onPlayFailed;
+  //void onPlaySuccess();
+  EzuiPlayerCallback({this.onPlaySuccess, this.onPlayFailed});
 }

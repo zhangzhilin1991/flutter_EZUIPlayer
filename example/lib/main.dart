@@ -20,7 +20,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: const Text('Flutter TextView example')),
-        body: Column(children: [
+        body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
           Center(
               child: Container(
                   //padding: EdgeInsets.symmetric(vertical: 10.0),
@@ -30,14 +32,10 @@ class _MyAppState extends State<MyApp> {
                     onEzuiPlayerCreated: _onEzuiPlayerCreated,
                   ))),
           MaterialButton(
-            child: Text((isPlay? "pause": "play")),
+            child: Text((isPlay? "pause": "play"), style: TextStyle(color: Colors.white),),
+          color: Colors.blue,
           onPressed: _play,
           ),
-          Expanded(
-              flex: 3,
-              child: Container(
-                  color: Colors.blue[100],
-                  child: Center(child: Text("Hello from Flutter!"))))
         ]));
   }
 
@@ -48,10 +46,23 @@ class _MyAppState extends State<MyApp> {
       controller.play();
     }
     isPlay = !isPlay;
+    setState(() {
+
+    });
   }
 
   void _onEzuiPlayerCreated(EzuiPlayerController controller) {
     this.controller = controller;
+    controller.setEzuiPlayerCalback(EzuiPlayerCallback(
+        onPlaySuccess: () {
+          print("EzuiPlayerCalback: onPlaySuccess");
+          isPlay = true;
+          setState(() {
+
+          });
+        }
+    ));
+
     controller.setUrl("ezopen://PDTYNU@open.ys7.com/C34337958/1.hd.live");
     //controller.play();
   }

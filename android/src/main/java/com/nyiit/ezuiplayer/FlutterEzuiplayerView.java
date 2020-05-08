@@ -50,7 +50,7 @@ public class FlutterEzuiplayerView implements PlatformView, MethodCallHandler, E
      * 创建加载view
      * @return
      */
-    private View initProgressBar(Context context) {
+    private View initProgressBar(Context context) { //一定要设置，否则界面一直显示转圈！！！！！！
         RelativeLayout relativeLayout = new RelativeLayout(context);
         relativeLayout.setBackgroundColor(Color.parseColor("#000000"));
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
@@ -113,6 +113,7 @@ public class FlutterEzuiplayerView implements PlatformView, MethodCallHandler, E
         // TODO: 2017/2/7 播放成功处理
         //mBtnPlay.setText(R.string.string_pause_play);
         //mEZUIPlayer.dissmissLoading();
+        methodChannel.invokeMethod("onPlaySuccess", null);
     }
 
     @Override
@@ -126,6 +127,7 @@ public class FlutterEzuiplayerView implements PlatformView, MethodCallHandler, E
             //未发现录像文件
             //Toast.makeText(this,getString(R.string.string_not_found_recordfile),Toast.LENGTH_LONG).show();
         }
+        methodChannel.invokeMethod("onPlayFail", error.getErrorString());
     }
 
     private int width;
@@ -135,6 +137,7 @@ public class FlutterEzuiplayerView implements PlatformView, MethodCallHandler, E
     public void onVideoSizeChange(int width, int height) {
         // TODO: 2017/2/16 播放视频分辨率回调
         Log.d(TAG,"onVideoSizeChange  width = "+width+"   height = "+height);
+        //methodChannel.invokeMethod("onVideoSizeChange", width, height);
     }
 
     @Override
@@ -142,6 +145,7 @@ public class FlutterEzuiplayerView implements PlatformView, MethodCallHandler, E
         Log.d(TAG,"onPrepared");
         //播放
         mEZUIPlayer.startPlay();
+        //methodChannel.invokeMethod("onPrepared");
     }
 
     @Override
@@ -150,6 +154,7 @@ public class FlutterEzuiplayerView implements PlatformView, MethodCallHandler, E
         if (calendar != null) {
             // TODO: 2017/2/16 当前播放时间
             //Log.d(TAG,"onPlayTime calendar = "+calendar.getTime().toString());
+            //methodChannel.invokeMethod("onPlayTime", calendar.getTime().toString());
         }
     }
 
@@ -157,6 +162,7 @@ public class FlutterEzuiplayerView implements PlatformView, MethodCallHandler, E
     public void onPlayFinish() {
         // TODO: 2017/2/16 播放结束
         Log.d(TAG,"onPlayFinish");
+        //methodChannel.invokeMethod("onPlayFinish");
     }
 
     //private void setText(MethodCall methodCall, Result result) {
@@ -172,6 +178,7 @@ public class FlutterEzuiplayerView implements PlatformView, MethodCallHandler, E
 
     @Override
     public void dispose() {
+        mEZUIPlayer.stopPlay();
         mEZUIPlayer.releasePlayer();
     }
 }
