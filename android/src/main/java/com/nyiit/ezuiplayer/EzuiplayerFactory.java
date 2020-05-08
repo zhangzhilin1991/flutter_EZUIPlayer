@@ -15,7 +15,7 @@ public class EzuiplayerFactory extends PlatformViewFactory{
     }
 
     @Override
-    public PlatformView create(Context context, int id, Object o) {
-        return new FlutterEzuiplayerView(context, messenger, id);
+    public PlatformView create(Context context, int id, Object args) {
+        return new FlutterEzuiplayerView(context, messenger, id, args);
     }
 }

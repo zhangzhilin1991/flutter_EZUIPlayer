@@ -12,6 +12,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  bool isPlay = false;
+
+  EzuiPlayerController controller;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,12 +23,16 @@ class _MyAppState extends State<MyApp> {
         body: Column(children: [
           Center(
               child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 30.0),
-                  width: 130.0,
-                  height: 100.0,
+                  //padding: EdgeInsets.symmetric(vertical: 10.0),
+                  width: 320.0,
+                  height: 240.0,
                   child: EzuiPlayer(
                     onEzuiPlayerCreated: _onEzuiPlayerCreated,
                   ))),
+          MaterialButton(
+            child: Text((isPlay? "pause": "play")),
+          onPressed: _play,
+          ),
           Expanded(
               flex: 3,
               child: Container(
@@ -33,7 +41,18 @@ class _MyAppState extends State<MyApp> {
         ]));
   }
 
+  void _play(){
+    if (isPlay){
+      controller.stop();
+    } else {
+      controller.play();
+    }
+    isPlay = !isPlay;
+  }
+
   void _onEzuiPlayerCreated(EzuiPlayerController controller) {
-    controller.setText('Hello from Android!');
+    this.controller = controller;
+    controller.setUrl("ezopen://PDTYNU@open.ys7.com/C34337958/1.hd.live");
+    //controller.play();
   }
 }

@@ -8,9 +8,15 @@ import 'package:flutter/material.dart';
 typedef void EzuiPlayerCreatedCallback(EzuiPlayerController controller);
 
 class EzuiPlayer extends StatefulWidget{
+  final int width;
+  final int height;
+  final String url;
 
   const EzuiPlayer({
     Key key,
+    this.width = 320,
+    this.height = 240,
+    this.url,
     this.onEzuiPlayerCreated
   }) :super(key: key);
 
@@ -23,6 +29,9 @@ class EzuiPlayer extends StatefulWidget{
     return _EzuiPlayerState();
   }
 
+  static void init(){
+
+  }
 }
 
 class _EzuiPlayerState extends State<EzuiPlayer> {
@@ -32,6 +41,12 @@ class _EzuiPlayerState extends State<EzuiPlayer> {
     if (defaultTargetPlatform == TargetPlatform.android) {
       return AndroidView(
         viewType: 'plugins.com.nyiit.ezuiplayer/EzuiPlayer',
+        creationParams: <String, dynamic>{
+          "width": widget.width,
+          "height": widget.height,
+          //"url": widget.url,
+        },
+        creationParamsCodec: const StandardMessageCodec(),
         onPlatformViewCreated: _onPlatformViewCreated,
       );
     }
@@ -54,8 +69,18 @@ class EzuiPlayerController {
 
   final MethodChannel _channel;
 
-  Future<void> setText(String text) async {
-    assert(text != null);
-    return _channel.invokeMethod('setText', text);
+  Future<void> setUrl(String url) async {
+    assert(url != null);
+    return _channel.invokeMethod('setUrl', url);
+  }
+
+  Future<void> play() async {
+    //assert(url != null);
+    return _channel.invokeMethod('play');
+  }
+
+  Future<void> stop() async {
+    //assert(url != null);
+    return _channel.invokeMethod('stop');
   }
 }
