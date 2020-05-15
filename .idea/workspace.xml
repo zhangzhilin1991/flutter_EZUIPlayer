@@ -10,10 +10,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="81acd85a-70dd-4738-900d-be5dec071e05" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/lib/fultter_ezuiplayer.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/src/main/java/com/nyiit/ezuiplayer/FlutterEzuiplayerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/nyiit/ezuiplayer/FlutterEzuiplayerView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ezuiplayer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ezuiplayer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ezuiplayer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/ezuiplayer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/ezuiplayer_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/ezuiplayer_test.dart" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,12 +23,13 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="4aa39b38" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_3_XL_API_26" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
         <option value="layoutResourceFile_vertical" />
+        <option value="Dart File" />
       </list>
     </option>
   </component>
@@ -40,6 +43,11 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../flutter/bin/cache/dart-sdk" />
     <property name="settings.editor.selected.configurable" value="dart.settings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/src" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">

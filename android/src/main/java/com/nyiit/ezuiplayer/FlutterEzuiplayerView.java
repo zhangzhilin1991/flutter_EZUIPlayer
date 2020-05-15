@@ -26,13 +26,18 @@ import java.util.Calendar;
 public class FlutterEzuiplayerView implements PlatformView, MethodCallHandler, EZUIPlayer.EZUIPlayerCallBack  {
     private static final String TAG = FlutterEzuiplayerView.class.getName();
 
+    private final int id;
     private final EZUIPlayer mEZUIPlayer;
     //private final TextView textView;
     private final MethodChannel methodChannel;
     private Context context;
+    private boolean isPlay = false; //是否应该播放，用于状态切换后判断
+    private String curUrl; //当前url
+
 
     FlutterEzuiplayerView(Context context, BinaryMessenger messenger, int id, Object args) {
         //textView = new TextView(context);
+        this.id = id;
         mEZUIPlayer = new EZUIPlayer(context);
         mEZUIPlayer.setBackgroundColor(Color.parseColor("#FF000000"));
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
@@ -71,6 +76,20 @@ public class FlutterEzuiplayerView implements PlatformView, MethodCallHandler, E
     }
 
     @Override
+    public void onFlutterViewAttached(View flutterView){
+        //if (isPlay && (curUrl != null)) {
+            //mEZUIPlayer.startPlay();
+        //    mEZUIPlayer.setUrl(curUrl);
+        //}
+    }
+
+    @Override
+    public void onFlutterViewDetached() {
+        mEZUIPlayer.stopPlay();
+        methodChannel.invokeMethod("onPlayStopped", null);
+    }
+
+    @Override
     public void onMethodCall(MethodCall methodCall, MethodChannel.Result result) {
         switch (methodCall.method) {
             //case "setText":
@@ -81,9 +100,11 @@ public class FlutterEzuiplayerView implements PlatformView, MethodCallHandler, E
                 break;
             case "play":
                 startPlay(result);
+                isPlay = true;
                 break;
             case "stop":
                 stopPlay(result);
+                isPlay = false;
                 break;
             default:
                 result.notImplemented();
@@ -91,20 +112,34 @@ public class FlutterEzuiplayerView implements PlatformView, MethodCallHandler, E
     }
 
     private void setUrl(MethodCall methodCall, Result result) {
-        String playUrl = (String) methodCall.arguments;
-        mEZUIPlayer.setUrl(playUrl);
+        String url = (String) methodCall.arguments;
+        setUrl(url);
         result.success(null);
     }
 
     private void startPlay(Result result){
-        //mEZUIPlayer.showLoading();
-        mEZUIPlayer.startPlay();
+        startPlay();
         result.success(null);
     }
 
     private void stopPlay(Result result){
-        mEZUIPlayer.stopPlay();
+        stopPlay();
         result.success(null);
+    }
+
+    //状态提示
+    private void setUrl(String url) {
+        curUrl = url;
+        mEZUIPlayer.setUrl(curUrl);
+    }
+
+    private void startPlay() {
+        mEZUIPlayer.startPlay();
+    }
+
+    private void stopPlay() {
+        mEZUIPlayer.stopPlay();
+        methodChannel.invokeMethod("onPlayStopped", null);
     }
 
     @Override
@@ -144,8 +179,8 @@ public class FlutterEzuiplayerView implements PlatformView, MethodCallHandler, E
     public void onPrepared() {
         Log.d(TAG,"onPrepared");
         //播放
-        mEZUIPlayer.startPlay();
-        //methodChannel.invokeMethod("onPrepared");
+        //mEZUIPlayer.startPlay();
+        methodChannel.invokeMethod("onPrepared", null);
     }
 
     @Override
@@ -154,7 +189,7 @@ public class FlutterEzuiplayerView implements PlatformView, MethodCallHandler, E
         if (calendar != null) {
             // TODO: 2017/2/16 当前播放时间
             //Log.d(TAG,"onPlayTime calendar = "+calendar.getTime().toString());
-            //methodChannel.invokeMethod("onPlayTime", calendar.getTime().toString());
+            methodChannel.invokeMethod("onPlayTime", calendar.getTime().toString());
         }
     }
 
@@ -162,19 +197,8 @@ public class FlutterEzuiplayerView implements PlatformView, MethodCallHandler, E
     public void onPlayFinish() {
         // TODO: 2017/2/16 播放结束
         Log.d(TAG,"onPlayFinish");
-        //methodChannel.invokeMethod("onPlayFinish");
+        methodChannel.invokeMethod("onPlayFinish", null);
     }
-
-    //private void setText(MethodCall methodCall, Result result) {
-    //    String text = (String) methodCall.arguments;
-    //    textView.setText(text);
-    //    result.success(null);
-    //}
-
-    //private EZUIPlayer getEZUIPlayer() {
-    //    EZUIPlayer mEZUIPlayer = LayoutInflater.from(registrar.activity()).inflate(R.layout.ezuiplayer);//new EZUIPlayer(context);
-    //    return mEZUIPlayer;
-    //}
 
     @Override
     public void dispose() {

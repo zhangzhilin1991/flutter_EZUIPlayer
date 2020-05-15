@@ -28,13 +28,19 @@ class EzuiPlayer extends StatefulWidget{
     //throw UnimplementedError();
     return _EzuiPlayerState();
   }
-
-  static void init(){
-
-  }
 }
 
 class _EzuiPlayerState extends State<EzuiPlayer> {
+
+  EzuiPlayerCreatedCallback onEzuiPlayerCreated;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +61,6 @@ class _EzuiPlayerState extends State<EzuiPlayer> {
         '$defaultTargetPlatform is not yet supported by the text_view plugin');
   }
 
-
   void _onPlatformViewCreated(int id) {
     if (widget.onEzuiPlayerCreated == null) {
       return;
@@ -65,11 +70,13 @@ class _EzuiPlayerState extends State<EzuiPlayer> {
 }
 
 class EzuiPlayerController {
+  String channelName;
   final MethodChannel _channel;
   EzuiPlayerCallback mEzuiPlayerCalback;
 
   EzuiPlayerController._(int id) :
         _channel = new MethodChannel('plugins.com.nyiit.ezuiplayer/EzuiPlayer_$id') {
+    channelName = _channel.name;
     _channel.setMethodCallHandler(_handleMethodCall);
   }
 
@@ -80,14 +87,22 @@ class EzuiPlayerController {
   Future<dynamic> _handleMethodCall(MethodCall call) async {
     print("_handleMethodCall: " + call.method);
     switch (call.method) {
+      case 'onPrepared':
+        mEzuiPlayerCalback?.onPrepared();
+        break;
       case 'onPlaySuccess':
         //isPlay = true;
         //regionDidChange();
       //if (mEzuiPlayerCalback != null) {
-        mEzuiPlayerCalback.onPlaySuccess();
+        mEzuiPlayerCalback?.onPlaySuccess();
       //}
         break;
       case 'onPlayFail':
+        String err = call.arguments;
+        mEzuiPlayerCalback?.onPlayFailed(err);
+        break;
+      case 'onPlayStopped':
+        mEzuiPlayerCalback?.onPlayStopped();
         break;
       case 'onVideoSizeChange':
         break;
@@ -121,9 +136,19 @@ class EzuiPlayerController {
 //callback
 typedef OnPlaySuccess = void Function();
 typedef OnPlayFailed = void Function(String error);
+typedef OnPlayStopped = void Function();
+typedef OnVideoSizeChanged = void Function();
+typedef OnPrepared = void Function();
+typedef OnPlayTime = void Function(String time);
+typedef OnPlayFinish = void Function();
 class EzuiPlayerCallback {
+  OnPrepared onPrepared;
   OnPlaySuccess onPlaySuccess;
   OnPlayFailed onPlayFailed;
+  OnPlayStopped onPlayStopped;
+  OnVideoSizeChanged onVideoSizeChanged;
+  OnPlayTime onPlayTime;
+  OnPlayFinish onPlayFinish;
   //void onPlaySuccess();
-  EzuiPlayerCallback({this.onPlaySuccess, this.onPlayFailed});
+  EzuiPlayerCallback({this.onPlaySuccess, this.onPlayFailed, this.onPlayStopped, this.onVideoSizeChanged, this.onPrepared, this.onPlayTime, this.onPlayFinish});
 }
