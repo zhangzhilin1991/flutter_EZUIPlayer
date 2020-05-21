@@ -3,8 +3,16 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:ezuiplayer/src/ezuiplayer.dart';
+import 'package:ezuiplayer/fultter_ezuiplayer.dart';
 
-void main() => runApp(MaterialApp(home: MyApp()));
+String appKey = 'cbc4453d01b2406da120d5ed1453b737';
+String accessToken = 'at.c3e2hhfyajbgkdge01f85si80e8uyyri-7p1tp8lfri-0sk5eby-lyluigo6s';
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await EzuiPlayerManager.initEzuiPlayer(appKey, accessToken);
+  runApp(MaterialApp(home: MyApp()));
+}
 
 class MyApp extends StatefulWidget {
   @override
@@ -16,12 +24,21 @@ class _MyAppState extends State<MyApp> {
 
   //
   //Map<String, EzuiPlayerController> controllers = new Map();
-  EzuiPlayerController controller;
+  EzuiPlayerController controller = new EzuiPlayerController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    //controller.setEzuiPlayerCalback(ezuiPlayerCalback)
+    setController();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: const Text('Flutter TextView example')),
+    return MaterialApp(
+        home: Scaffold(
+        appBar: AppBar(title: const Text('Flutter EZUIPlayer example')),
         body: SingleChildScrollView(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -32,10 +49,11 @@ class _MyAppState extends State<MyApp> {
                   width: 320.0,
                   height: 240.0,
                   child: EzuiPlayer(
-                    onEzuiPlayerCreated: _onEzuiPlayerCreated,
+                    ezuiPlayerController: controller,
+                    //onEzuiPlayerCreated: _onEzuiPlayerCreated,
                   ))),
           MaterialButton(
-            child: Text((isPlay? "pause": "play"), style: TextStyle(color: Colors.white),),
+            child: Text((controller.isPlay? "pause": "play"), style: TextStyle(color: Colors.white),),
           color: Colors.blue,
           onPressed: _play,
           ),
@@ -56,14 +74,15 @@ class _MyAppState extends State<MyApp> {
         ]
         )
     )
+    )
     );
   }
 
   void _play(){
-    if (isPlay){
-      controller.stop();
+    if (controller.isPlay){
+      controller.stopPlay();
     } else {
-      controller.play();
+      controller.startPlay();
     }
     //isPlay = !isPlay;
     //setState(() {
@@ -71,12 +90,16 @@ class _MyAppState extends State<MyApp> {
      //});
   }
 
-  void _onEzuiPlayerCreated(EzuiPlayerController controller) {
-    this.controller = controller;
+  void setController() {
+    //this.controller = controller;
     //controllers[controller.channelName] = controller; //保存
     controller.setEzuiPlayerCalback(EzuiPlayerCallback(
+        onCreated: (){
+          print("EzuiPlayerCalback: onCreated");
+          controller.setUrl("ezopen://PDTYNU@open.ys7.com/C34337958/1.hd.live");
+        },
         onPrepared: (){
-          controller.play();
+          controller.startPlay();
         },
         onPlaySuccess: () {
           print("EzuiPlayerCalback: onPlaySuccess");
@@ -89,12 +112,15 @@ class _MyAppState extends State<MyApp> {
           print("EzuiPlayerCallback: " + error);
         },
         onPlayStopped: () {
+          print("EzuiPlayerCalback: onPlayStopped");
           isPlay = false;
           setState(() {
           });
-    }
+        },
+        onPlayTime: (time) {
+          //print("onPlayTime: " + time);
+        }
     ));
-    controller.setUrl("ezopen://PDTYNU@open.ys7.com/C34337958/1.hd.live");
     //controller.play();
   }
 }

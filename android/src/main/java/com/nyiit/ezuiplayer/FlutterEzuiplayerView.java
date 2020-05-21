@@ -98,11 +98,11 @@ public class FlutterEzuiplayerView implements PlatformView, MethodCallHandler, E
             case "setUrl":
                 setUrl(methodCall, result);
                 break;
-            case "play":
+            case "startPlay":
                 startPlay(result);
                 isPlay = true;
                 break;
-            case "stop":
+            case "stopPlay":
                 stopPlay(result);
                 isPlay = false;
                 break;

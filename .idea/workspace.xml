@@ -10,12 +10,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="81acd85a-70dd-4738-900d-be5dec071e05" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/fultter_ezuiplayer.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/callback/EzuiPlayerCallback.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/controller/EzuiPlayerController.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/controller/EzuiPlayerStatus.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/controller/plugin.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/engine/EzuiPlayerManager.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/route/fullscreen_route.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/textureEzuiPlayer.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/widget/controller_widget_builder.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/widget/full_screen.part.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/com/nyiit/ezuiplayer/EzuiplayerPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/nyiit/ezuiplayer/EzuiplayerPlugin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/src/main/java/com/nyiit/ezuiplayer/FlutterEzuiplayerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/nyiit/ezuiplayer/FlutterEzuiplayerView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/java/com/nyiit/ezuiplayer_example/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/java/com/nyiit/ezuiplayer_example/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ezuiplayer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/ezuiplayer.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/ezuiplayer_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/ezuiplayer_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/fultter_ezuiplayer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/fultter_ezuiplayer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/ezuiplayer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/ezuiplayer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,7 +38,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_3_XL_API_26" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="4aa39b38" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -33,6 +48,7 @@
       </list>
     </option>
   </component>
+  <component name="FlutterView" splitter-proportion="0.48938993" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -40,12 +56,16 @@
   <component name="PropertiesComponent">
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../flutter/bin/cache/dart-sdk" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../flutter_video_full_controller" />
     <property name="settings.editor.selected.configurable" value="dart.settings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/src" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/src/widget" />
       <recent name="$PROJECT_DIR$/lib/src" />
     </key>
   </component>
